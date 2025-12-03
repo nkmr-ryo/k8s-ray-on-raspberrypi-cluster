@@ -1,0 +1,44 @@
+# KubeRay Operator Installation
+
+This section explains how to install the **KubeRay Operator** on a Kubernetes cluster.
+
+Most of the steps follow the official documentation:  
+[KubeRay Operator Installation](https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/kuberay-operator-installation.html)  
+In addition, this document includes notes specific to running KubeRay on a **Raspberry Pi 5 (ARM64) Kubernetes cluster**.
+
+---
+
+## Step 1: Install the KubeRay Operator
+
+There are two ways to install the KubeRay Operator:
+
+1. **Using Helm (recommended)**
+2. **Using Kustomize**
+
+The Ray official documentation recommends Helm, so this example uses the Helm method.
+
+Run the following commands to install the operator (version `1.5.0`):
+
+```bash
+helm repo add kuberay https://ray-project.github.io/kuberay-helm/
+helm repo update
+
+# Install both CRDs and the KubeRay Operator v1.5.0
+helm install kuberay-operator kuberay/kuberay-operator --version 1.5.0
+```
+
+## Step 2: Validate Installation
+Confirm that the operator Pod is running in the **default** namespace:
+
+```bash
+kubectl get pods
+```
+
+Expected output:
+
+```bash
+NAME                                READY   STATUS    RESTARTS   AGE
+kuberay-operator-5c575cccb6-2659c   1/1     Running   0          21s
+```
+
+If the pod shows **Running** and **1/1**, the installation was successful.
