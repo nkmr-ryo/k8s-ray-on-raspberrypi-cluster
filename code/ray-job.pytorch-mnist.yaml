@@ -4,14 +4,14 @@ metadata:
   name: rayjob-batch-inference
 spec:
   shutdownAfterJobFinishes: false
-  entrypoint: python quickstart_with_Ray_AIR.py
+  entrypoint: python code/quickstart_with_Ray_AIR.py
   runtimeEnvYAML: |
     pip:
       - "ray[data,train,xgboost]==2.52.0"
       - xgboost
       - pandas
       - pyarrow
-    working_dir: "https://github.com/ray-project/kuberay/archive/master.zip"
+    working_dir: "https://github.com/nkmr-ryo/k8s-ray-on-raspberrypi-cluster/archive/refs/heads/main.zip"
     env_vars:
       NUM_WORKERS: "1"
       CPUS_PER_WORKER: "2"
