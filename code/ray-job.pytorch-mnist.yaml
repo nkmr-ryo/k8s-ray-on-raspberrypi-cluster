@@ -5,6 +5,7 @@ metadata:
 spec:
   shutdownAfterJobFinishes: false
   entrypoint: python code/quickstart_with_Ray_AIR.py
+
   runtimeEnvYAML: |
     pip:
       - "ray[data,train,xgboost]==2.52.0"
@@ -12,16 +13,11 @@ spec:
       - pandas
       - pyarrow
     working_dir: "https://github.com/nkmr-ryo/k8s-ray-on-raspberrypi-cluster/archive/refs/heads/main.zip"
-    env_vars:
-      NUM_WORKERS: "1"
-      CPUS_PER_WORKER: "2"
 
-  # rayClusterSpec specifies the RayCluster instance to be created by the RayJob controller.
   rayClusterSpec:
-    rayVersion: '2.52.0'
+    rayVersion: "2.52.0"
     headGroupSpec:
       rayStartParams: {}
-      # Pod template
       template:
         spec:
           containers:
@@ -30,24 +26,24 @@ spec:
             ports:
             - containerPort: 6379
               name: gcs-server
-            - containerPort: 8265 # Ray dashboard
+            - containerPort: 8265
               name: dashboard
             - containerPort: 10001
               name: client
             resources:
               limits:
                 cpu: "1"
-                memory: "4Gi"
+                memory: "3Gi"
               requests:
                 cpu: "1"
-                memory: "4Gi"
+                memory: "3Gi"
+
     workerGroupSpecs:
     - replicas: 1
       minReplicas: 1
       maxReplicas: 5
       groupName: small-group
       rayStartParams: {}
-      # Pod template
       template:
         spec:
           containers:
@@ -56,7 +52,7 @@ spec:
             resources:
               limits:
                 cpu: "2"
-                memory: "3Gi"
+                memory: "2Gi"
               requests:
                 cpu: "2"
-                memory: "3Gi"
+                memory: "2Gi"
