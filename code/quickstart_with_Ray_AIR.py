@@ -121,7 +121,6 @@ trainer = XGBoostTrainer(
     # サポートされてない可能性が高いので、使うなら
     # train_loop 内で自前で前処理するのが安全
     # preprocessor=preprocessor,
-    metadata={"description": "Tips dataset high-tip classifier"},
 )
 
 result = trainer.fit()
